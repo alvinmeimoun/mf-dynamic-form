@@ -21,6 +21,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
   @Input() i18n: I18n;
   @Input() dynamicFormRoot: DynamicFormComponent; //TODO delete this and pass by FormAPI instead
   private subx: Subscription[] = [];
+  innerHTML: string;
 
   customControlOutputs: any;
 
@@ -104,6 +105,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     this.subscribeToEnableDependencies(true);
     this.subscribeToOptionsPromises();
     this.subscribeToFormChanges();
+    this.convertHTML(this.control.labelToolTip);
   }
 
   onFileSelect(event) {
@@ -358,6 +360,11 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
   private updateValidator(validators) {
     this.form.get(this.control.key).setValidators(validators);
     this.form.get(this.control.key).updateValueAndValidity();
+  }
+  convertHTML(helpText: string) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(helpText, 'text/html');
+    this.innerHTML = doc.body.innerHTML;
   }
 }
 
