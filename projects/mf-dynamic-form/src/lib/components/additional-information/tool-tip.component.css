@@ -47,11 +47,21 @@
   transform: translateY(0px);
 }
 
-/* IE can just show/hide with no transition */
-.lte8 .wrapper .tooltip {
-  display: none;
+.tooltip-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.lte8 .wrapper:hover .tooltip {
-  display: block;
+.tooltip-content > * {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.tooltip-content * {
+  width: 100%;
+  height: 100%;
 }
